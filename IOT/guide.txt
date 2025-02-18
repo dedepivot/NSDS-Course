@@ -1,0 +1,17 @@
+PROCESS SCHEDULING (CASE SENSITIVE):
+•PROCESS_PAUSE():releases control, rescheduled immediately
+•PROCESS_YIELD():releases control, wait for next event
+•process_poll(&process_name): polls another protothread
+•PROCESS_EXIT(): stops a protothread
+•process_exit(&process_name): kills another protothread
+
+TIMER
+**Generate events for protothreads:**
+•etimer: generates events when timers expire
+•stimer: like etimer for longer periods
+
+**Execute callbacks:**
+•ctimer: schedule function executions in time
+•rtimer: preempts currently running functions with callback execution (provides predictable timer semantics)
+
+

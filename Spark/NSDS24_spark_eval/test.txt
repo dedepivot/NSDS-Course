@@ -1,0 +1,9 @@
+        Dataset<Row> userVisitedPage = accessLog.join(popularPages.drop("count"), "PageURL")
+                .drop("PageURL")
+                .drop("AccessTime")
+                .drop("Duration");
+        Dataset<Row> userNonVisitedPage = accessLog
+                .drop("PageURL")
+                .drop("AccessTime")
+                .drop("Duration")
+                        .except(userVisitedPage);

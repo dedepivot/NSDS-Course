@@ -1,0 +1,40 @@
+Topic: A category for messages (e.g., "order").
+Partition: A SUBSET of UNIQUE messages within a topic.
+Replica: A copy of a partition for fault tolerance.
+Offset: The unique index of a message within a partition.
+Can be automatically or manual committed by the client to Kafka
+Broker: A Kafka server that stores and manages partitions.
+
+Idempotent Producer: a producer that wait for an ACK from kafka before sending a NEW msg - NO DUPLICATE MSG TOPIC
+Transactional Consumer: a consumer that read a value, elabore it, and save it on a kafka topic, in a TRANSACTIONAL ATOMIC WAY
+
+Earliest: start reading msg from the latest COMMITTED OFFSET for that gruop
+Latest: start reading msg from the first pull after joining the gruop
+
+
+producer.initTransactions();
+                final ConsumerRecords<String, Integer> records = consumer.poll(Duration.of(5, ChronoUnit.MINUTES));
+                for (final ConsumerRecord<String, Integer> record : records) {
+                    toSumMsg.add(record);
+                    if (toSumMsg.size() == 10) {
+                        int sum = 0;
+                        for(ConsumerRecord<String, Integer> toSumRecord : toSumMsg){
+                            sum+=toSumRecord.value();
+                        }
+		                ProducerRecord<String, Integer> outgoingRecord = new ProducerRecord<>(outputTopic, "sum", sum);
+		                producer.send(outgoingRecord);
+		                toSumMsg = new ArrayList<>();
+                        producer.sendOffsetsToTransaction(map, consumer.groupMetadata());
+                    }
+                }
+                for (final TopicPartition partition : records.partitions()) {
+                    //Create a list of all the record of a given partition
+                    //Usually this list is composed of a single element after a PULL, but when u JOIN the list is composted of a multitude of element
+                    //When u "join - earliest" is guarantee of being a list of element | When u "join-latest" can be a list or a single element
+                    final List<ConsumerRecord<String, Integer>> partitionRecords = records.records(partition);
+                    //take the OFFSET of last msg of the given partition
+                    final long lastOffset = partitionRecords.get(partitionRecords.size() - 1).offset();
+                    //update the new offset that will be used
+                    map.put(partition, new OffsetAndMetadata(lastOffset + 1));
+                }
+            }

@@ -1,0 +1,14 @@
+[2024-11-14 09:59:35,578] INFO Reading configuration from: ./config/ (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2024-11-14 09:59:35,580] ERROR Invalid config, exiting abnormally (org.apache.zookeeper.server.quorum.QuorumPeerMain)
+org.apache.zookeeper.server.quorum.QuorumPeerConfig$ConfigException: Error processing ./config/
+	at org.apache.zookeeper.server.quorum.QuorumPeerConfig.parse(QuorumPeerConfig.java:196)
+	at org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:125)
+	at org.apache.zookeeper.server.quorum.QuorumPeerMain.main(QuorumPeerMain.java:91)
+Caused by: java.io.FileNotFoundException: ./config (Is a directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at org.apache.zookeeper.server.quorum.QuorumPeerConfig.parse(QuorumPeerConfig.java:186)
+	... 2 more
+[2024-11-14 09:59:35,583] INFO ZooKeeper audit is disabled. (org.apache.zookeeper.audit.ZKAuditProvider)
+[2024-11-14 09:59:35,586] ERROR Exiting JVM with code 2 (org.apache.zookeeper.util.ServiceUtils)

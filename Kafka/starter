@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Navigate to the Kafka installation directory
+cd ./kafka_2.13-3.9.0
+
+# Start Zookeeper in a new terminal
+echo "Starting Zookeeper..."
+gnome-terminal -- bash -c "bin/zookeeper-server-start.sh config/zookeeper.properties; exec bash"
+
+sleep 10
+
+# Start Kafka in a new terminal
+echo "Starting Kafka..."
+gnome-terminal -- bash -c "bin/kafka-server-start.sh config/server.properties; exec bash"
+

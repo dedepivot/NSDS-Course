@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Open the second terminal and run VBoxHeadless command
+gnome-terminal -- bash -c "VBoxHeadless --startvm 'VM - Ubuntu 16.04 32-bit Contiki NG Middleware Class AY 2021'; exec bash"
+
+# Wait for 2 seconds to ensure the VM starts
+sleep 2
+
+# Open the first terminal and run SSH command (after waiting for the VM)
+gnome-terminal -- bash -c "sshpass -p 'user' ssh -p 2222 user@localhost; exec bash"
+

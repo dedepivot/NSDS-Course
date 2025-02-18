@@ -1,0 +1,8 @@
+Exchangerate-api.com: 381d4cab4dd8a717007b265e
+openWeatherMap: 3c3da0edf59d1505dc11b27ed8df35c6
+
+
+Ripasso di francese quotidiano:
+https://v2.jokeapi.dev/joke/Any?lang=fr&blacklistFlags=nsfw,religious,racist,sexist,explicit
+Immagine di cane:
+https://dog.ceo/api/breed/retriever/golden/images/random
